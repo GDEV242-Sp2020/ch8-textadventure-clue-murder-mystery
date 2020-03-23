@@ -161,6 +161,10 @@ public class Game
             case LOOK:
                 lookDescription();
                 break;
+                
+            case GUESS:
+                wantToQuit = makeGuess(command);
+                break;
 
             case QUIT:
                 wantToQuit = quit(command);
@@ -288,6 +292,9 @@ public class Game
             System.out.println("As you accuse the maid of the murder, she says to you,");
             System.out.println("'But I didn't do it I tell you! It wasn't me!'");
             System.out.println("Sorry, but you failed to correctly guess the culprit.");
+        } else {
+            System.out.println("I don't know who that is");
+            return false;
         }
         return true;
     }
