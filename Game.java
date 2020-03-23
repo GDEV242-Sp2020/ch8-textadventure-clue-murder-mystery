@@ -37,27 +37,67 @@ public class Game
         Room outside, theater, pub, lab, office;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        Room lobby = new Room("in the lobby");
+        Room billiards = new Room("in the billiards room");
+        Room closet = new Room("in the closet");
+        Room kitchen = new Room("in the kitchen");
+        Room living = new Room("in the living room");
+        Room study = new Room("in the study");
+        Room hallway = new Room("in the upstairs hallway");
+        Room masterBed = new Room("in the master bedroom");
+        Room masterBath = new Room("in the master bathroom");
+        Room bedroom1 = new Room("in guest bedroom 1");
+        Room bathroom1 = new Room("in guest bathroom 1");
+        Room bedroom2 = new Room("in guest bedroom 2");
+        Room bathroom2 = new Room("in guest bathroom 2");
+        Room garden = new Room("in the garden");
+        Room gameRoom = new Room("in the game room");
         
         // initialise room exits
-        outside.setExit("east", theater);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        lobby.setExit("study", study);
+        lobby.setExit("billiards", billiards);
+        lobby.setExit("kitchen", kitchen);
+        lobby.setExit("closet", closet);
+        lobby.setExit("living", living);
+        lobby.setExit("upstairs", hallway);
 
-        theater.setExit("west", outside);
+        study.setExit("lobby", lobby);
 
-        pub.setExit("east", outside);
+        billiards.setExit("lobby", lobby);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        closet.setExit("lobby", lobby);
+        
+        kitchen.setExit("lobby", lobby);
 
-        office.setExit("west", lab);
+        living.setExit("lobby", lobby);
+        
+        hallway.setExit("downstairs", lobby);
+        hallway.setExit("masterBed", masterBed);
+        hallway.setExit("masterBath", masterBath);
+        hallway.setExit("garden", garden);
+        hallway.setExit("game", gameRoom);
+        hallway.setExit("bedroom1", bedroom1);
+        hallway.setExit("bathroom1", bathroom1);
+        hallway.setExit("bedroom2", bedroom2);
+        hallway.setExit("bathroom2", bathroom2);
+        
+        masterBed.setExit("hallway", hallway);
+        
+        masterBath.setExit("hallway", hallway);
+        
+        gameRoom.setExit("hallway", hallway);
+        
+        garden.setExit("hallway", hallway);
+        
+        bedroom1.setExit("hallway", hallway);
+        
+        bathroom1.setExit("hallway", hallway);
+        
+        bedroom2.setExit("hallway", hallway);
+        
+        bathroom2.setExit("hallway", hallway);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = lobby;  // start game outside
     }
 
     /**
@@ -84,8 +124,10 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("Welcome to Clue!");
+        System.out.println("A murder has been commited and it's up to you to find the culprit");
+        System.out.println("Your three suspects are the butler, the maid, and the house owner's wife.");
+        System.out.println("To make a guess, type 'guess' and the suspect (butler, maid, wife).");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
@@ -113,6 +155,10 @@ public class Game
 
             case GO:
                 goRoom(command);
+                break;
+                
+            case LOOK:
+                lookDescription();
                 break;
 
             case QUIT:
@@ -161,6 +207,67 @@ public class Game
         else {
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+        }
+    }
+    
+    /**
+     * Gives the player a visual description of the room they are in.
+     * Requires the player the use the LOOK command.
+     */
+    private void lookDescription() {
+        if(currentRoom.getShortDescription().equals("in the lobby")) {
+            System.out.println("Nothing in the lobby really captures your attention.");
+            System.out.println("There is a grand staircase and a few doors.");
+        } else if(currentRoom.getShortDescription().equals("in the billiards room")) {
+            System.out.println("As the name of the room suggests, there is a pool table in the middle of the room.");
+            System.out.println("However, the 2 ball, the 11 ball, and one of the pool sticks are missing.");
+        } else if(currentRoom.getShortDescription().equals("in the closet")) {
+            System.out.println("Many nice and beautiful suits and dresses are hung in this closet.");
+            System.out.println("Other than that, nothing else catches your attention.");
+        } else if(currentRoom.getShortDescription().equals("in the kitchen")) {
+            System.out.println("The kitchen appears to have not been touched.");
+            System.out.println("The only thing you notice is a single knife out that is in pristine condition.");
+        } else if(currentRoom.getShortDescription().equals("in the living room")) {
+             System.out.println("The scene of the crime happened here.");
+             System.out.println("You immediately notice two things:");
+             System.out.println("One, the television is still on. It appears the man was watching ESPN when he was killed.");
+             System.out.println("Two, the blood stains are dripping down the back of the couch.");
+        } else if(currentRoom.getShortDescription().equals("in the study")) {
+             System.out.println("Books seem to be thrown all over the place here.");
+             System.out.println("After a search through the study, you do find a note.");
+             System.out.println("It appears to be a small shopping list.");
+             System.out.println("The two things on the list are eggs and a knife both written in cursive.");
+        } else if(currentRoom.getShortDescription().equals("in the upstairs hallway")) {
+             System.out.println("Many doors lead into separate rooms in this hallway.");
+        } else if(currentRoom.getShortDescription().equals("in the master bedroom")) {
+             System.out.println("After a thorough search of the master bedroom, you eventually find a notebook.");
+             System.out.println("Since you don't have time to read the whole notebook, you skim it.");
+             System.out.println("The notebook is written in cursive and doesn't appear to have any useful information.");
+        } else if(currentRoom.getShortDescription().equals("in the master bathroom")) {
+             System.out.println("This room appears to be untouched.");
+             System.out.println("Nothing catches your eye as evidence.");
+        } else if(currentRoom.getShortDescription().equals("in guest bedroom 1")) {
+             System.out.println("This room appears to be untouched.");
+             System.out.println("You do, however, find a to-do list in an open drawer.");
+             System.out.println("The list reads, 'Ask for raise, make cake for party.'");
+        } else if(currentRoom.getShortDescription().equals("in guest bathroom 1")) {
+             System.out.println("This room appears to be untouched.");
+             System.out.println("Nothing catches your eye as evidence.");
+        } else if(currentRoom.getShortDescription().equals("in guest bedroom 2")) {
+             System.out.println("This room appears to be untouched.");
+             System.out.println("Nothing catches your eye as evidence.");
+        } else if(currentRoom.getShortDescription().equals("in guest bathroom 2")) {
+             System.out.println("This room appears to be untouched.");
+             System.out.println("Nothing catches your eye as evidence.");
+        } else if(currentRoom.getShortDescription().equals("in the garden")) {
+             System.out.println("The only thing that catches your eye here are the amount of venus flytraps.");
+             System.out.println("Out of the 20 plants here, half of them are flytraps.");
+             System.out.println("Nothing else catches your attention.");
+        } else if(currentRoom.getShortDescription().equals("in the game room")) {
+             System.out.println("This small room has a small, round table in the middle of it.");
+             System.out.println("It also has a 2 ball, an 11 ball, and a pool stick from a billiards game in it.");
+        } else {
+            System.out.println("This line should never run.");
         }
     }
 
