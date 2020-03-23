@@ -1,14 +1,14 @@
 import java.util.HashMap;
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.
+ * This class is part of the "Clue" application. 
+ * "Clue" is a very simple, text based adventure game.
  * 
  * This class holds an enumeration of all command words known to the game.
  * It is used to recognise commands as they are typed in.
  *
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Ryan Boehm
+ * @version 2020.03.23
  */
 
 public class CommandWords

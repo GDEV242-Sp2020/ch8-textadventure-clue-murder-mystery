@@ -1,8 +1,9 @@
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
+ *  This class is the main class of the "Clue" application. 
+ *  "Clue" is a very simple, text based adventure game which was bsed of the
+ *  popular board game, 'Clue' (though it is not the same as it).
+ *  Users can walk a mansion and look for clues to determine who the murderer
+ *  is.
  * 
  *  To play this game, create an instance of this class and call the "play"
  *  method.
@@ -11,8 +12,8 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2016.02.29
+ * @author  Ryan Boehm
+ * @version 2020.03.23
  */
 
 public class Game 
@@ -125,7 +126,7 @@ public class Game
     {
         System.out.println();
         System.out.println("Welcome to Clue!");
-        System.out.println("A murder has been commited and it's up to you to find the culprit");
+        System.out.println("A murder has been commited and it's up to you to find the culprit.");
         System.out.println("Your three suspects are the butler, the maid, and the house owner's wife.");
         System.out.println("To make a guess, type 'guess' and the suspect (butler, maid, wife).");
         System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
@@ -172,14 +173,10 @@ public class Game
 
     /**
      * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
-     * command words.
+     * Here we print a list of the command words.
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
     }
@@ -269,6 +266,30 @@ public class Game
         } else {
             System.out.println("This line should never run.");
         }
+    }
+    
+    /**
+     * Allows the user to make a guess as to who they think the culprit is.
+     */
+    private boolean makeGuess(Command command) {
+        if(!(command.hasSecondWord())) {
+            System.out.println("Who are you guessing?");
+            return false;
+        }
+        if(command.getSecondWord().equalsIgnoreCase("wife")) {
+            System.out.println("As you accuse the wife of the murder, she says to you,");
+            System.out.println("'Ah, you got me. I don't regret it though. Never liked that old coot anyway.'");
+            System.out.println("\nCongratulations! You have correctly guessed the murderer!");
+        } else if(command.getSecondWord().equalsIgnoreCase("butler")) {
+            System.out.println("As you accuse the butler of the murder, he says to you,");
+            System.out.println("'But I didn't do it I tell you! It wasn't me!'");
+            System.out.println("Sorry, but you failed to correctly guess the culprit.");
+        } else if(command.getSecondWord().equalsIgnoreCase("maid")) {
+            System.out.println("As you accuse the maid of the murder, she says to you,");
+            System.out.println("'But I didn't do it I tell you! It wasn't me!'");
+            System.out.println("Sorry, but you failed to correctly guess the culprit.");
+        }
+        return true;
     }
 
     /** 
